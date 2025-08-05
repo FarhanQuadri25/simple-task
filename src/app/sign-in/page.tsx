@@ -18,7 +18,6 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { useState, useTransition } from "react";
-import { useTheme } from "next-themes";
 import { api } from "@/lib/api";
 
 const FormSchema = z.object({
@@ -31,15 +30,14 @@ const FormSchema = z.object({
 });
 
 const DUMMY_CREDENTIALS = {
-  username: "taskadmin",
-  password: "Password@123456",
+  username: "m2m",
+  password: "m123",
 };
 
 export default function SignInPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const { theme } = useTheme();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

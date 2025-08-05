@@ -477,10 +477,10 @@ export default function TaskManager() {
                 </DialogContent>
               </Dialog>
 
-              <div className="flex items-center gap-2 text-sm dark:text-gray-400 text-gray-600">
+              {/* <div className="flex items-center gap-2 text-sm dark:text-gray-400 text-gray-600">
                 <Filter className="h-4 w-4" />
                 <span>Showing all tasks</span>
-              </div>
+              </div> */}
             </div>
           </div>
 
