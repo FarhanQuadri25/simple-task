@@ -30,7 +30,7 @@ const FormSchema = z.object({
 
 const DUMMY_CREDENTIALS = {
   username: "taskadmin",
-  password:"Password@123456",
+  password: "Password@123456",
 };
 
 export default function SignInPage() {
@@ -54,6 +54,7 @@ export default function SignInPage() {
         data.username === DUMMY_CREDENTIALS.username &&
         data.password === DUMMY_CREDENTIALS.password
       ) {
+        localStorage.setItem("isAuthenticated", "true");
         toast.success("Login successful! Redirecting to dashboard...");
         router.push("/");
       } else {
@@ -69,7 +70,7 @@ export default function SignInPage() {
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#0d0d0d]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent" />
-      
+
       <div className="relative z-10 w-full max-w-5xl">
         <div className="bg-[#1f1f1f] border border-[#333333] rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
           {/* Left Panel - Branding */}
@@ -77,7 +78,7 @@ export default function SignInPage() {
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent" />
             <div className="absolute inset-0 bg-[linear-gradient(45deg,_transparent_25%,_rgba(255,255,255,0.05)_50%,_transparent_75%)]" />
-            
+
             <div className="relative text-center space-y-6">
               <div className="bg-white/20 backdrop-blur-sm p-6 rounded-2xl w-fit mx-auto border border-white/20">
                 <Shield className="h-12 w-12 text-white" />
@@ -85,7 +86,8 @@ export default function SignInPage() {
               <div className="space-y-3">
                 <h2 className="text-3xl font-bold">Task Manager Pro</h2>
                 <p className="text-blue-100 text-lg leading-relaxed max-w-sm">
-                  Professional task management platform designed for modern teams
+                  Professional task management platform designed for modern
+                  teams
                 </p>
               </div>
               <div className="flex items-center justify-center space-x-2 text-sm text-blue-200">
@@ -102,7 +104,9 @@ export default function SignInPage() {
               <div className="bg-blue-600/20 p-4 rounded-2xl w-fit mx-auto mb-4">
                 <Shield className="h-8 w-8 text-blue-400" />
               </div>
-              <h1 className="text-2xl font-bold text-white mb-2">Task Manager Pro</h1>
+              <h1 className="text-2xl font-bold text-white mb-2">
+                Task Manager Pro
+              </h1>
             </div>
 
             {/* Form Header */}
@@ -136,7 +140,10 @@ export default function SignInPage() {
             </div> */}
 
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
                 <FormField
                   control={form.control}
                   name="username"
