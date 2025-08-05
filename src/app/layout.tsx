@@ -10,7 +10,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Task Manager Pro",
+  title: "Task Manager",
   description: "Professional task management application",
 };
 
