@@ -228,16 +228,16 @@ export default function TaskManager() {
       {/* Top right: Theme toggle and logout */}
       <div className="fixed top-4 right-4 z-50 flex space-x-2">
         <Button
-          variant="ghost"
+          variant="outline"
           size="icon"
           aria-label="Toggle theme"
-          className="rounded-full"
+          className="rounded-full border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800/80 transition-colors duration-300 shadow-sm"
           onClick={handleThemeToggle}
         >
           {theme === "light" ? (
-            <Moon className="w-5 h-5 text-black" />
+            <Moon className="w-5 h-5 text-gray-600 group-hover:text-gray-800" />
           ) : (
-            <Sun className="w-5 h-5 text-white" />
+            <Sun className="w-5 h-5 text-gray-400 group-hover:text-amber-400" />
           )}
         </Button>
         <Button
