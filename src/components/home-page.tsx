@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { api } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -154,9 +153,9 @@ export default function TaskManager() {
   const { setTheme, theme } = useTheme();
   const router = useRouter();
 
-  useEffect(() => {
-    api.post("visit").catch(console.error);
-  }, []);
+  // useEffect(() => {
+  //   api.post("visit").catch(console.error);
+  // }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

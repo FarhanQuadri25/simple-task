@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { useState, useTransition } from "react";
 import { useTheme } from "next-themes";
+import { api } from "@/lib/api";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -57,6 +58,7 @@ export default function SignInPage() {
         data.password === DUMMY_CREDENTIALS.password
       ) {
         localStorage.setItem("isAuthenticated", "true");
+        api.post("visit").catch(console.error);
         toast.success("Login successful! Redirecting to dashboard...");
         router.push("/");
       } else {
