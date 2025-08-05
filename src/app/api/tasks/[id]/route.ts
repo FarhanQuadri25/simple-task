@@ -1,6 +1,6 @@
 // app/api/tasks/[id]/route.ts
 import { NextResponse } from 'next/server'
-import prisma from '@/app/config/db'
+import prisma from '@/config/db'
 
 export async function DELETE(
     request: Request,

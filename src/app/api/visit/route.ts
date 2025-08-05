@@ -1,5 +1,5 @@
 // app/api/visit/route.ts
-import prisma from '@/app/config/db';
+import prisma from '@/config/db';
 import { NextResponse } from 'next/server';
 
 
