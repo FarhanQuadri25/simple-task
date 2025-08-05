@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { api } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,10 +46,15 @@ import {
   Briefcase,
   Home,
   Clock,
+  LogOut,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useTasks, useCreateTask, useDeleteTask } from "@/hooks/use-task";
 import { useParties } from "@/hooks/use-party";
 import * as z from "zod";
+import { useRouter } from "next/navigation";
+
 
 // Form schema for validation
 const formSchema = z.object({
@@ -106,36 +110,22 @@ const taskTypes = [
   },
 ];
 
-// Function to randomly assign task type
 const getRandomTaskType = () => {
   return taskTypes[Math.floor(Math.random() * taskTypes.length)];
 };
 
-// Date formatting function (similar to date-fns format)
 const formatDate = (date: string | Date) => {
   const d = new Date(date);
   const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
   ];
-
   const day = d.getDate();
   const month = months[d.getMonth()];
   const hours = d.getHours();
   const minutes = d.getMinutes().toString().padStart(2, "0");
   const ampm = hours >= 12 ? "PM" : "AM";
   const displayHours = hours % 12 || 12;
-
   return `${day} ${month}, ${displayHours}:${minutes} ${ampm}`;
 };
 
@@ -146,6 +136,7 @@ export default function TaskManager() {
   const createTask = useCreateTask();
   const deleteTask = useDeleteTask();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     api.post("visit").catch(console.error);
@@ -192,6 +183,12 @@ export default function TaskManager() {
     });
   };
 
+  // Fixed placement for Nav/Utility top right
+  const handleLoggedOut = () => {
+    localStorage.removeItem("isAuthenticated");
+    router.push("/sign-in");
+  };
+
   const getPriorityDetails = (priorityValue: string) => {
     return (
       priorityOptions.find((opt) => opt.value === priorityValue) ||
@@ -206,11 +203,26 @@ export default function TaskManager() {
     );
   };
 
+
   return (
-    <div className="min-h-screen bg-[#171717]">
+    <div className="min-h-screen bg-[#171717] relative">
+      {/* Top right: Theme toggle and logout */}
+      <div className="fixed top-4 right-4 z-50 flex space-x-2">
+   
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label="Logout"
+          className="rounded-full border border-gray-500 text-gray-300 hover:bg-red-500/10 hover:text-red-500"
+          onClick={handleLoggedOut}
+        >
+          <LogOut className="w-5 h-5" />
+        </Button>
+      </div>
+
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#0d0d0d]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900/20 via-gray-900/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#0d0d0d] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900/20 via-gray-900/5 to-transparent pointer-events-none" />
 
       <div className="relative z-10">
         <div className="container mx-auto px-4 py-8 lg:px-8 max-w-7xl">

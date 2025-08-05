@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import ReactQueryProvider from "./query-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -20,19 +21,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistMono.className} antialiased bg-[#171717] text-white min-h-screen`}
       >
         <ReactQueryProvider>
-          {children}
-          <Toaster
-            position="bottom-right"
-            richColors
-            visibleToasts={5}
-            closeButton={true}
-            theme="dark"
-          />
+          <ThemeProvider
+            attribute={"class"}
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster
+              position="bottom-right"
+              richColors
+              visibleToasts={5}
+              closeButton={true}
+              theme="dark"
+            />
+          </ThemeProvider>
         </ReactQueryProvider>
       </body>
     </html>
